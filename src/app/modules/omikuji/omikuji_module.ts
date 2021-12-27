@@ -2,13 +2,23 @@
 import {
     AfterBlockApplyContext,
     AfterGenesisBlockApplyContext, BaseModule,
-    BeforeBlockApplyContext, TransactionApplyContext
+    BeforeBlockApplyContext, TransactionApplyContext,
+    codec
 } from 'lisk-sdk';
 import { PullAsset } from "./assets/pull_asset";
-import { AccountSchema } from "./schemas";
+import {
+    AccountSchema ,
+	CHAIN_STATE_OMIKUJI_KEKKA, OmikujiKekkaSchema, OmikujiKekkaType
+} from "./schemas";
 
 export class OmikujiModule extends BaseModule {
-    public actions = {};
+    public actions = {
+        omikujiKekka: async () => {
+            const res = await this._dataAccess.getChainState(CHAIN_STATE_OMIKUJI_KEKKA);
+            const kekka: OmikujiKekkaType = res? codec.decode(OmikujiKekkaSchema, res): {omikujiKekka: []};
+            return kekka.omikujiKekka;
+        },
+    };
     public reducers = {};
     public name = 'omikuji';
     public transactionAssets = [new PullAsset()];

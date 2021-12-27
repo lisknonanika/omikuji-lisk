@@ -31,7 +31,8 @@
 		"test:ci": "jest --passWithNoTests --coverage=true --coverage-reporters=json --verbose",
 		"version": "oclif-dev readme --multi --dir=docs/commands && git add README.md docs",
 		"prepublishOnly": "npm ci && npm run lint && npm run build",
-		"omikuji": "./bin/run start --enable-http-api-plugin --http-api-plugin-port=8000 --api-ws --api-ws-port=8080 --enable-dashboard-plugin"
+		"omikuji": "./bin/run start --enable-http-api-plugin --http-api-plugin-port=8000 --api-ws --api-ws-port=8080 --enable-dashboard-plugin",
+		"genesis": "./bin/run genesis-block:create --output config/default"
 	},
 	"bin": {
 		"omikuji-lisk": "./bin/run"
@@ -104,13 +105,13 @@
 		"@oclif/command": "1.8.0",
 		"@oclif/plugin-autocomplete": "0.3.0",
 		"@oclif/plugin-help": "3.2.2",
+		"axios": "0.21.1",
 		"fs-extra": "9.0.1",
 		"inquirer": "7.3.2",
 		"lisk-commander": "^5.1.5",
 		"lisk-sdk": "^5.1.4",
 		"tar": "6.0.2",
-		"tslib": "1.13.0",
-		"axios": "0.21.1"
+		"tslib": "1.13.0"
 	},
 	"devDependencies": {
 		"@oclif/dev-cli": "1.22.2",

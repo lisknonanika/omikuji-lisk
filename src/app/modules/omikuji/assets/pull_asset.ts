@@ -1,5 +1,9 @@
-import { BaseAsset, ApplyAssetContext, ValidateAssetContext, cryptography } from 'lisk-sdk';
-import { AccountType, PullAssetSchema, PullAssetType } from '../schemas';
+import { BaseAsset, ApplyAssetContext, ValidateAssetContext, cryptography, codec } from 'lisk-sdk';
+import {
+	AccountType,
+	PullAssetSchema, PullAssetType,
+	CHAIN_STATE_OMIKUJI_KEKKA, OmikujiKekkaSchema, OmikujiKekkaType, OmikujiKekkaElementType
+ } from '../schemas';
 import * as constants from '../constants';
 
 export class PullAsset extends BaseAsset {
@@ -49,13 +53,6 @@ export class PullAsset extends BaseAsset {
         // 送信者の情報に結果を設定
         const targetAddress = cryptography.getAddressFromLisk32Address(asset.address);
         const targetAccount:{address: Buffer, omikuji: AccountType} = await stateStore.account.getOrDefault(targetAddress);
-		if (targetAccount.omikuji.result) {
-			targetAccount.omikuji.history.push({
-				result: targetAccount.omikuji.result,
-				detail: targetAccount.omikuji.detail,
-				tx: targetAccount.omikuji.tx
-			});
-		}
         targetAccount.omikuji.result = kekka;
 		targetAccount.omikuji.detail = [
 			`${constants.KUJI_SHURUI[0]}：${constants.KUJI_NAIYO[n1]}`,
@@ -65,5 +62,18 @@ export class PullAsset extends BaseAsset {
 		];
 		targetAccount.omikuji.tx = id;
         stateStore.account.set(targetAccount.address, targetAccount);
+
+		const omikujiKekkaElem: OmikujiKekkaElementType = {
+			address: asset.address,
+			name: asset.name,
+			result: targetAccount.omikuji.result,
+			detail: targetAccount.omikuji.detail,
+			tx: targetAccount.omikuji.tx
+		};
+
+		const omikujiKekkaBuffer = await stateStore.chain.get(CHAIN_STATE_OMIKUJI_KEKKA);
+		const omikujiKekka: OmikujiKekkaType = omikujiKekkaBuffer? codec.decode(OmikujiKekkaSchema, omikujiKekkaBuffer): {omikujiKekka: []};
+		omikujiKekka.omikujiKekka.push(omikujiKekkaElem);
+		await stateStore.chain.set(CHAIN_STATE_OMIKUJI_KEKKA, codec.encode(OmikujiKekkaSchema, omikujiKekka));
     }
 }
