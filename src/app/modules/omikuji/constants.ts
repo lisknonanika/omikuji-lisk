@@ -22,5 +22,3 @@ export const KUJI_SHURUI = [
     '仕事運',
     '恋愛運'
 ]
-
-export const ATARI_SU = 10;

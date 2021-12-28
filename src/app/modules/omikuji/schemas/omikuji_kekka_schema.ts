@@ -33,6 +33,10 @@ export const OmikujiKekkaSchema = {
                     tx: {
                         fieldNumber: 5,
                         dataType: 'string',
+                    },
+                    jikan: {
+                        fieldNumber: 6,
+                        dataType: 'uint32',
                     }
                 },
             },
@@ -45,7 +49,8 @@ export type OmikujiKekkaElementType = {
     name: string,
     result: string,
     detail: string[],
-    tx: string
+    tx: string,
+    jikan: number
 }
 
 export type OmikujiKekkaType = {

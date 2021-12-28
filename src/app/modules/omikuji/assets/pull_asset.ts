@@ -21,6 +21,7 @@ export class PullAsset extends BaseAsset {
 			throw new Error('アドレス間違っとらんか？');
 		}
 		if (!asset.name) throw new Error('お主、名前がないのじゃ...？');
+		if (!asset.jikan) throw new Error('お主、どこの時代から来たのじゃ...？');
     }
 
     // eslint-disable-next-line @typescript-eslint/require-await
@@ -60,7 +61,6 @@ export class PullAsset extends BaseAsset {
 			`${constants.KUJI_SHURUI[2]}：${constants.KUJI_NAIYO[n3]}`,
 			`${constants.KUJI_SHURUI[3]}：${constants.KUJI_NAIYO[n4]}`,
 		];
-		targetAccount.omikuji.tx = id;
         stateStore.account.set(targetAccount.address, targetAccount);
 
 		const omikujiKekkaElem: OmikujiKekkaElementType = {
@@ -68,7 +68,8 @@ export class PullAsset extends BaseAsset {
 			name: asset.name,
 			result: targetAccount.omikuji.result,
 			detail: targetAccount.omikuji.detail,
-			tx: targetAccount.omikuji.tx
+			tx: id,
+			jikan: asset.jikan
 		};
 
 		const omikujiKekkaBuffer = await stateStore.chain.get(CHAIN_STATE_OMIKUJI_KEKKA);

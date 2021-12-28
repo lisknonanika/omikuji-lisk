@@ -2,7 +2,7 @@ export const PullAssetSchema = {
     $id: 'omikuji/pull-asset',
     title: 'PullAsset transaction asset for omikuji module',
     type: 'object',
-    required: ['address', 'name'],
+    required: ['address', 'name', 'jikan'],
     properties: {
         address: {
             dataType: 'string', 
@@ -13,7 +13,7 @@ export const PullAssetSchema = {
             dataType: 'string', 
             fieldNumber: 2,
         },
-        itazura: {
+        jikan: {
             dataType: 'uint32', 
             fieldNumber: 3,
         },
@@ -23,5 +23,5 @@ export const PullAssetSchema = {
 export type PullAssetType = {
     address: string;
     name: string;
-    itazura: number;
+    jikan: number;
 };

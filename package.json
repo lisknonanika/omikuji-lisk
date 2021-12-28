@@ -31,7 +31,7 @@
 		"test:ci": "jest --passWithNoTests --coverage=true --coverage-reporters=json --verbose",
 		"version": "oclif-dev readme --multi --dir=docs/commands && git add README.md docs",
 		"prepublishOnly": "npm ci && npm run lint && npm run build",
-		"omikuji": "./bin/run start --enable-http-api-plugin --http-api-plugin-port=4000 --api-ws --api-ws-port=8080 --enable-dashboard-plugin",
+		"omikuji": "./bin/run start --enable-http-api-plugin --api-ws --api-ws-port=8080 --enable-dashboard-plugin",
 		"genesis": "./bin/run genesis-block:create --output config/default"
 	},
 	"bin": {

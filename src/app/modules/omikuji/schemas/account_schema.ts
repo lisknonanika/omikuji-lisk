@@ -13,21 +13,15 @@ export const AccountSchema = {
             },
             minItems: 4,
             maxItems: 4,
-        },
-        tx: {
-            fieldNumber: 3,
-            dataType: 'string',
         }
     },
     default: {
         result: '',
-        detail: ['', '', '', ''],
-        tx: ''
+        detail: ['', '', '', '']
     },
 };
 
 export type AccountType = {
     result: string;
     detail: string[];
-    tx: string;
 };
