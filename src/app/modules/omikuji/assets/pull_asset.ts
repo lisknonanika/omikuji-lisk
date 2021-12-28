@@ -14,13 +14,13 @@ export class PullAsset extends BaseAsset {
     public schema = PullAssetSchema;
 
     public validate({ asset }: ValidateAssetContext<PullAssetType>): void {
-        if (!asset.address) throw new Error('アドレスは必須なのじゃ');
+        if (!asset.address) throw new Error('アドレスを教えてほしいのじゃー');
 		try {
 			cryptography.validateBase32Address(asset.address);
 		} catch (ex) {
 			throw new Error('アドレス間違っとらんか？');
 		}
-		if (!asset.name) throw new Error('名前は必須なのじゃ');
+		if (!asset.name) throw new Error('お主、名前がないのじゃ...？');
     }
 
     // eslint-disable-next-line @typescript-eslint/require-await

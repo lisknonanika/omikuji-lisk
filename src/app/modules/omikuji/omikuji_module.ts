@@ -2,13 +2,14 @@
 import {
     AfterBlockApplyContext,
     AfterGenesisBlockApplyContext, BaseModule,
-    BeforeBlockApplyContext, TransactionApplyContext,
-    codec
+    BeforeBlockApplyContext,
+    codec, TransactionApplyContext
 } from 'lisk-sdk';
+import { AtariAsset } from "./assets/atari_asset";
 import { PullAsset } from "./assets/pull_asset";
 import {
-    AccountSchema ,
-	CHAIN_STATE_OMIKUJI_KEKKA, OmikujiKekkaSchema, OmikujiKekkaType
+    AccountSchema,
+    CHAIN_STATE_OMIKUJI_KEKKA, OmikujiKekkaSchema, OmikujiKekkaType
 } from "./schemas";
 
 export class OmikujiModule extends BaseModule {
@@ -21,7 +22,7 @@ export class OmikujiModule extends BaseModule {
     };
     public reducers = {};
     public name = 'omikuji';
-    public transactionAssets = [new PullAsset()];
+    public transactionAssets = [new PullAsset(), new AtariAsset()];
     public events = [];
     public id = 3535;
 
