@@ -9,7 +9,8 @@ import { AtariAsset } from "./assets/atari_asset";
 import { PullAsset } from "./assets/pull_asset";
 import {
     AccountSchema,
-    CHAIN_STATE_OMIKUJI_KEKKA, OmikujiKekkaSchema, OmikujiKekkaType
+    CHAIN_STATE_OMIKUJI_KEKKA, OmikujiKekkaSchema, OmikujiKekkaType,
+    CHAIN_STATE_OMIKUJI_ATARI, OmikujiAtariSchema, OmikujiAtariType
 } from "./schemas";
 
 export class OmikujiModule extends BaseModule {
@@ -18,6 +19,11 @@ export class OmikujiModule extends BaseModule {
             const res = await this._dataAccess.getChainState(CHAIN_STATE_OMIKUJI_KEKKA);
             const kekka: OmikujiKekkaType = res? codec.decode(OmikujiKekkaSchema, res): {omikujiKekka: []};
             return kekka.omikujiKekka;
+        },
+        omikujiAtari: async () => {
+            const res = await this._dataAccess.getChainState(CHAIN_STATE_OMIKUJI_ATARI);
+            const atari: OmikujiAtariType = res? codec.decode(OmikujiAtariSchema, res): {omikujiAtari: []};
+            return atari.omikujiAtari;
         },
     };
     public reducers = {};

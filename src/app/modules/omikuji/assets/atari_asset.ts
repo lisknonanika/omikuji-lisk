@@ -1,5 +1,9 @@
-import { BaseAsset, ValidateAssetContext } from 'lisk-sdk';
-import { AtariAssetSchema, AtariAssetType } from '../schemas';
+import { BaseAsset, ValidateAssetContext, ApplyAssetContext, codec } from 'lisk-sdk';
+import {
+	AtariAssetSchema, AtariAssetType,
+	CHAIN_STATE_OMIKUJI_ATARI, OmikujiAtariSchema
+} from '../schemas';
+
 export class AtariAsset extends BaseAsset {
 	public name = 'atari';
 	public id = 1;
@@ -11,5 +15,7 @@ export class AtariAsset extends BaseAsset {
 		if (asset.name.length > asset.atarisu) throw new Error('当たりが多すぎるとおもうのじゃが...');
 	}
 
-	public async apply(): Promise<void> {}
+	public async apply({ asset, stateStore }: ApplyAssetContext<AtariAssetType>): Promise<void> {
+		await stateStore.chain.set(CHAIN_STATE_OMIKUJI_ATARI, codec.encode(OmikujiAtariSchema, {omikujiAtari: asset.name}));
+	}
 }
