@@ -1,0 +1,4 @@
+{
+    "name" : "omikuji-core",
+    "script" : "./bin/run start --enable-http-api-plugin --api-ws --api-ws-port=8080 --enable-dashboard-plugin"
+}

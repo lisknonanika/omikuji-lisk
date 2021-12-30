@@ -8,7 +8,7 @@ import * as constants from '../constants';
 
 export class PullAsset extends BaseAsset {
     public name = 'pull';
-      public id = 0;
+	public id = 0;
 
     // トランザクション実行時のパラメータ用のスキーマを設定
     public schema = PullAssetSchema;
@@ -74,7 +74,7 @@ export class PullAsset extends BaseAsset {
 
 		const omikujiKekkaBuffer = await stateStore.chain.get(CHAIN_STATE_OMIKUJI_KEKKA);
 		const omikujiKekka: OmikujiKekkaType = omikujiKekkaBuffer? codec.decode(OmikujiKekkaSchema, omikujiKekkaBuffer): {omikujiKekka: []};
-		omikujiKekka.omikujiKekka.push(omikujiKekkaElem);
+		omikujiKekka.omikujiKekka.unshift(omikujiKekkaElem);
 		await stateStore.chain.set(CHAIN_STATE_OMIKUJI_KEKKA, codec.encode(OmikujiKekkaSchema, omikujiKekka));
     }
 }
